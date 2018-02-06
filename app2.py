@@ -8,7 +8,7 @@ from flask import Flask, render_template, Response
 if os.environ.get('CAMERA'):
     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
 else:
-    from camera1 import Camera
+    from camera2 import Camera
 
 app = Flask(__name__)
 
@@ -17,12 +17,12 @@ def index():
     """Video streaming home page."""
     return render_template('index.html')
 
-def gen(camera1):
+def gen(camera2):
     """Video streaming generator function."""
     getcount = 1 
-    while (getcount < camera1.count()):
+    while (getcount < camera2.count()):
         print (getcount)
-        frame = camera1.get_frame()
+        frame = camera2.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
         getcount = getcount + 1   
